@@ -2,7 +2,9 @@
 <resources>
     <string name="app_name">LeitnerBox</string>
 
-    <string name="summary">Слов в базе: %1$d\nК повторению сегодня — прямой: %2$d, обратный: %3$d</string>
+    <string name="summary">Сегодня — прямой: %1$d (ближних: %2$d, дальних: %3$d)\nобратный: %4$d (ближних: %5$d, дальних: %6$d)</string>
+    <string name="word_count_footer">Слов в базе: %1$d</string>
+    <string name="back">← Назад</string>
 
     <string name="direction_forward">➡️ Прямой перевод</string>
     <string name="direction_reverse">⬅️ Обратный перевод</string>
