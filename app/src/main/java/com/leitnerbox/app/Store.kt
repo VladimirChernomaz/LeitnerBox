@@ -58,7 +58,15 @@ object Store {
         return items
     }
 
-    fun dueCount(directions: Set<Direction>): Int = buildDueQueue(directions).size
+      fun dueCount(directions: Set<Direction>): Int = buildDueQueue(directions).size
+
+    fun nearCount(directions: Set<Direction>): Int =
+        progress.count { it.direction in directions && it.box == Box.NEAR }
+
+    fun farDueCount(directions: Set<Direction>): Int {
+        val due = today()
+        return progress.count { it.direction in directions && it.box == Box.FAR && it.nextDueEpochDay <= due }
+    }
 
     fun markKnown(p: Progress) {
         val due = today()
