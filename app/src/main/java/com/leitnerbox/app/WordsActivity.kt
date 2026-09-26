@@ -25,6 +25,7 @@ class WordsActivity : AppCompatActivity() {
         binding.recyclerWords.adapter = adapter
 
         binding.buttonAdd.setOnClickListener { addWord() }
+        binding.buttonBack.setOnClickListener { finish() }
 
         refreshList()
     }
