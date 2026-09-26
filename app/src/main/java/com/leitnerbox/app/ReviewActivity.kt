@@ -28,6 +28,7 @@ class ReviewActivity : AppCompatActivity() {
         binding.buttonReveal.setOnClickListener { reveal() }
         binding.buttonKnown.setOnClickListener { answer(known = true) }
         binding.buttonForgot.setOnClickListener { answer(known = false) }
+        binding.buttonBack.setOnClickListener { finish() }
 
         showCurrent()
     }
