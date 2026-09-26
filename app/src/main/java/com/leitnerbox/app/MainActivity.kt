@@ -29,11 +29,15 @@ class MainActivity : AppCompatActivity() {
         updateCounts()
     }
 
-    private fun updateCounts() {
-        val fwd = Store.dueCount(setOf(Direction.FORWARD))
-        val rev = Store.dueCount(setOf(Direction.REVERSE))
-        val total = Store.words.size
-        binding.textSummary.text = getString(R.string.summary, total, fwd, rev)
+        private fun updateCounts() {
+        val fwd = setOf(Direction.FORWARD)
+        val rev = setOf(Direction.REVERSE)
+        binding.textSummary.text = getString(
+            R.string.summary,
+            Store.dueCount(fwd), Store.nearCount(fwd), Store.farDueCount(fwd),
+            Store.dueCount(rev), Store.nearCount(rev), Store.farDueCount(rev)
+        )
+        binding.textWordCount.text = getString(R.string.word_count_footer, Store.words.size)
     }
 
     private fun startReview(directions: Set<Direction>) {
