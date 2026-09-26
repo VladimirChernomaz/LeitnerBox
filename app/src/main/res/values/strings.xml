@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LeitnerBox</string>
+
+    <string name="summary">Слов в базе: %1$d\nК повторению сегодня — прямой: %2$d, обратный: %3$d</string>
+
+    <string name="direction_forward">➡️ Прямой перевод</string>
+    <string name="direction_reverse">⬅️ Обратный перевод</string>
+    <string name="direction_mixed">🔀 Вперемешку</string>
+    <string name="manage_words">📝 Мои слова</string>
+
+    <string name="session_done">Готово! На сегодня всё 🎉</string>
+    <string name="counter">Осталось: %1$d</string>
+    <string name="show_translation">👁 Показать</string>
+    <string name="known">✅ Знаю</string>
+    <string name="forgot">❌ Забыл</string>
+
+    <string name="hint_foreign">Слово на языке</string>
+    <string name="hint_translation">Перевод</string>
+    <string name="add_word">➕ Добавить</string>
+    <string name="delete_word">🗑</string>
+    <string name="word_count">Слов в списке: %1$d</string>
+</resources>
