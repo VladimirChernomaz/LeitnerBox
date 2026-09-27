@@ -18,26 +18,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonForward.setOnClickListener { startReview(setOf(Direction.FORWARD)) }
         binding.buttonReverse.setOnClickListener { startReview(setOf(Direction.REVERSE)) }
-        binding.buttonMixed.setOnClickListener { startReview(setOf(Direction.FORWARD, Direction.REVERSE)) }
         binding.buttonWords.setOnClickListener {
             startActivity(Intent(this, WordsActivity::class.java))
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateCounts()
-    }
-
-        private fun updateCounts() {
-        val fwd = setOf(Direction.FORWARD)
-        val rev = setOf(Direction.REVERSE)
-        binding.textSummary.text = getString(
-            R.string.summary,
-            Store.dueCount(fwd), Store.nearCount(fwd), Store.farDueCount(fwd),
-            Store.dueCount(rev), Store.nearCount(rev), Store.farDueCount(rev)
-        )
-        binding.textWordCount.text = getString(R.string.word_count_footer, Store.words.size)
+        binding.buttonStats.setOnClickListener {
+            startActivity(Intent(this, StatsActivity::class.java))
+        }
     }
 
     private fun startReview(directions: Set<Direction>) {
