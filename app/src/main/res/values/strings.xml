@@ -2,14 +2,11 @@
 <resources>
     <string name="app_name">LeitnerBox</string>
 
-    <string name="summary">Сегодня — прямой: %1$d (ближних: %2$d, дальних: %3$d)\nобратный: %4$d (ближних: %5$d, дальних: %6$d)</string>
-    <string name="word_count_footer">Слов в базе: %1$d</string>
     <string name="back">← Назад</string>
-
     <string name="direction_forward">➡️ Прямой перевод</string>
     <string name="direction_reverse">⬅️ Обратный перевод</string>
-    <string name="direction_mixed">🔀 Вперемешку</string>
     <string name="manage_words">📝 Мои слова</string>
+    <string name="stats">📊 Статистика</string>
 
     <string name="session_done">Готово! На сегодня всё 🎉</string>
     <string name="counter">Осталось: %1$d</string>
@@ -22,4 +19,12 @@
     <string name="add_word">➕ Добавить</string>
     <string name="delete_word">🗑</string>
     <string name="word_count">Слов в списке: %1$d</string>
+
+    <string name="stats_total">Всего слов в базе: %1$d</string>
+    <string name="stats_direction_forward">Прямой перевод</string>
+    <string name="stats_direction_reverse">Обратный перевод</string>
+    <string name="stats_line">Изучаемые: %1$d\nОсвоенные: %2$d (к повторению сегодня: %3$d)</string>
+    <string name="far_limit_title">Сколько освоенных слов подмешивать за одну сессию</string>
+    <string name="far_limit_hint">0 = без ограничения</string>
+    <string name="save">💾 Сохранить</string>
 </resources>
