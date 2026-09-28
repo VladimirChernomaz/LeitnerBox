@@ -18,6 +18,8 @@ object Store {
 
     val words = mutableListOf<Word>()
     val progress = mutableListOf<Progress>()
+    var farLimit: Int = 0 // 0 = без ограничения; иначе - сколько освоенных слов подмешивать в сессию за раз
+        private set
 
     fun init(context: Context) {
         file = File(context.filesDir, "leitnerbox.json")
@@ -49,27 +51,39 @@ object Store {
 
     fun buildDueQueue(directions: Set<Direction>): MutableList<ReviewItem> {
         val due = today()
-        val items = progress
+        val allDue = progress
             .filter { it.direction in directions }
             .filter { it.box == Box.NEAR || it.nextDueEpochDay <= due }
+
+        val near = allDue.filter { it.box == Box.NEAR }
+        var far = allDue.filter { it.box == Box.FAR }
+        if (farLimit > 0 && far.size > farLimit) {
+            far = far.shuffled().take(farLimit)
+        }
+
+        val items = (near + far)
             .mapNotNull { p -> words.find { it.id == p.wordId }?.let { ReviewItem(it, p) } }
             .toMutableList()
         items.shuffle()
         return items
     }
 
-      fun dueCount(directions: Set<Direction>): Int = buildDueQueue(directions).size
+    fun dueCount(directions: Set<Direction>): Int = buildDueQueue(directions).size
 
     fun nearCount(directions: Set<Direction>): Int =
         progress.count { it.direction in directions && it.box == Box.NEAR }
 
-        fun farDueCount(directions: Set<Direction>): Int {
+    fun farDueCount(directions: Set<Direction>): Int {
         val due = today()
         return progress.count { it.direction in directions && it.box == Box.FAR && it.nextDueEpochDay <= due }
     }
 
     fun farTotalCount(directions: Set<Direction>): Int =
         progress.count { it.direction in directions && it.box == Box.FAR }
+
+    fun updateFarLimit(limit: Int) {
+        farLimit = limit
+        save()
     }
 
     fun markKnown(p: Progress) {
@@ -118,6 +132,7 @@ object Store {
             })
         }
         root.put("progress", progressArray)
+        root.put("farLimit", farLimit)
 
         file.writeText(root.toString())
     }
@@ -132,6 +147,8 @@ object Store {
         } catch (_: Exception) {
             return
         }
+
+        farLimit = root.optInt("farLimit", 0)
 
         val wordsArray = root.optJSONArray("words") ?: JSONArray()
         for (i in 0 until wordsArray.length()) {
