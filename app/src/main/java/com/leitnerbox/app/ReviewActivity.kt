@@ -1,6 +1,7 @@
 package com.leitnerbox.app
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.leitnerbox.app.databinding.ActivityReviewBinding
 
@@ -33,39 +34,44 @@ class ReviewActivity : AppCompatActivity() {
         showCurrent()
     }
 
+    private fun promptFor(item: Store.ReviewItem): String =
+        if (item.progress.direction == Direction.FORWARD) item.word.foreign else item.word.translation
+
+    private fun answerFor(item: Store.ReviewItem): String {
+        val main = if (item.progress.direction == Direction.FORWARD) item.word.translation else item.word.foreign
+        return if (item.word.forms.isBlank()) main else main + "\n\n" + item.word.forms
+    }
+
     private fun showCurrent() {
         if (queue.isEmpty()) {
             binding.textPrompt.text = getString(R.string.session_done)
             binding.textAnswer.text = ""
-            binding.textAnswer.visibility = android.view.View.GONE
-            binding.buttonReveal.visibility = android.view.View.GONE
-            binding.buttonKnown.visibility = android.view.View.GONE
-            binding.buttonForgot.visibility = android.view.View.GONE
+            binding.textAnswer.visibility = View.GONE
+            binding.buttonReveal.visibility = View.GONE
+            binding.buttonKnown.visibility = View.GONE
+            binding.buttonForgot.visibility = View.GONE
             binding.textCounter.text = ""
             return
         }
 
         val item = queue.first()
-        val prompt = if (item.progress.direction == Direction.FORWARD) item.word.foreign else item.word.translation
-        binding.textPrompt.text = prompt
+        binding.textPrompt.text = promptFor(item)
         binding.textCounter.text = getString(R.string.counter, queue.size)
 
         revealed = false
-        binding.textAnswer.visibility = android.view.View.INVISIBLE
-        binding.buttonReveal.visibility = android.view.View.VISIBLE
-        binding.buttonKnown.visibility = android.view.View.GONE
-        binding.buttonForgot.visibility = android.view.View.GONE
+        binding.textAnswer.visibility = View.INVISIBLE
+        binding.buttonReveal.visibility = View.VISIBLE
+        binding.buttonKnown.visibility = View.GONE
+        binding.buttonForgot.visibility = View.GONE
     }
 
     private fun reveal() {
         if (queue.isEmpty()) return
-        val item = queue.first()
-        val answer = if (item.progress.direction == Direction.FORWARD) item.word.translation else item.word.foreign
-        binding.textAnswer.text = answer
-        binding.textAnswer.visibility = android.view.View.VISIBLE
-        binding.buttonReveal.visibility = android.view.View.GONE
-        binding.buttonKnown.visibility = android.view.View.VISIBLE
-        binding.buttonForgot.visibility = android.view.View.VISIBLE
+        binding.textAnswer.text = answerFor(queue.first())
+        binding.textAnswer.visibility = View.VISIBLE
+        binding.buttonReveal.visibility = View.GONE
+        binding.buttonKnown.visibility = View.VISIBLE
+        binding.buttonForgot.visibility = View.VISIBLE
         revealed = true
     }
 
