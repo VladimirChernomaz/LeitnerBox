@@ -21,7 +21,7 @@ class StatsActivity : AppCompatActivity() {
         binding.buttonSaveLimit.setOnClickListener {
             val value = binding.editFarLimit.text?.toString()?.toIntOrNull()
             if (value != null && value >= 0) {
-                Store.setFarLimit(value)
+                Store.updateFarLimit(value)
                 android.widget.Toast.makeText(this, getString(R.string.save), android.widget.Toast.LENGTH_SHORT).show()
             }
         }
