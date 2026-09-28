@@ -30,13 +30,21 @@ object Store {
 
     // ---------- Word management ----------
 
-    fun addWord(foreign: String, translation: String) {
-        val word = Word(id = UUID.randomUUID().toString(), foreign = foreign, translation = translation)
+    fun addWord(foreign: String, forms: String, translation: String) {
+        val word = Word(id = UUID.randomUUID().toString(), foreign = foreign, forms = forms, translation = translation)
         words.add(word)
         val due = today()
         progress.add(Progress(word.id, Direction.FORWARD, Box.NEAR, 0, due))
         progress.add(Progress(word.id, Direction.REVERSE, Box.NEAR, 0, due))
         save()
+    }
+
+    fun updateWord(id: String, foreign: String, forms: String, translation: String) {
+        val i = words.indexOfFirst { it.id == id }
+        if (i >= 0) {
+            words[i] = Word(id, foreign, forms, translation)
+            save()
+        }
     }
 
     fun deleteWord(wordId: String) {
@@ -116,6 +124,7 @@ object Store {
             wordsArray.put(JSONObject().apply {
                 put("id", w.id)
                 put("foreign", w.foreign)
+                put("forms", w.forms)
                 put("translation", w.translation)
             })
         }
@@ -153,7 +162,7 @@ object Store {
         val wordsArray = root.optJSONArray("words") ?: JSONArray()
         for (i in 0 until wordsArray.length()) {
             val o = wordsArray.getJSONObject(i)
-            words.add(Word(o.getString("id"), o.getString("foreign"), o.getString("translation")))
+            words.add(Word(o.getString("id"), o.getString("foreign"), o.optString("forms", ""), o.getString("translation")))
         }
 
         val progressArray = root.optJSONArray("progress") ?: JSONArray()
