@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class WordAdapter(
-    private val onDelete: (Word) -> Unit
+    private val onDelete: (Word) -> Unit,
+    private val onEdit: (Word) -> Unit
 ) : RecyclerView.Adapter<WordAdapter.VH>() {
 
     private val items = mutableListOf<Word>()
@@ -31,8 +32,9 @@ class WordAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
-        holder.foreign.text = item.foreign
-        holder.translation.text = item.translation
+        holder.foreign.text = if (item.forms.isBlank()) item.foreign else "${item.foreign}  (${item.forms})"
+        holder.translation.text = item.translation.replace("\n", " · ")
+        holder.itemView.setOnClickListener { onEdit(item) }
         holder.delete.setOnClickListener { onDelete(item) }
     }
 
