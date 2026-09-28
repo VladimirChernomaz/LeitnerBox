@@ -14,11 +14,18 @@
     <string name="known">✅ Знаю</string>
     <string name="forgot">❌ Забыл</string>
 
-    <string name="hint_foreign">Слово на языке</string>
-    <string name="hint_translation">Перевод</string>
+    <string name="hint_foreign">Слово (основная форма)</string>
+    <string name="hint_forms">Другие формы (необязательно)</string>
+    <string name="hint_translation">Перевод (несколько значений — каждое с новой строки)</string>
     <string name="add_word">➕ Добавить</string>
     <string name="delete_word">🗑</string>
-    <string name="word_count">Слов в списке: %1$d</string>
+    <string name="word_count">Слов в списке: %1$d · нажмите на слово, чтобы изменить</string>
+    <string name="delete_title">Удалить слово?</string>
+    <string name="delete_message">«%1$s» будет удалено вместе с прогрессом изучения.</string>
+    <string name="yes">Да, удалить</string>
+    <string name="no">Отмена</string>
+    <string name="edit_title">Изменить слово</string>
+    <string name="cancel">Отмена</string>
 
     <string name="stats_total">Всего слов в базе: %1$d</string>
     <string name="stats_direction_forward">Прямой перевод</string>
